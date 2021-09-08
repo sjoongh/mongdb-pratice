@@ -24,6 +24,44 @@ app.use(logger("dev"));
 //  미들웨어 express.static 미들웨어 함수를 등록 
 app.use(express.static(__dirname + "/public"));
 
+// GET 메서드 요청의 처리
+// app.get(url, callback)
+app.get("/", (req, resp) => {
+    // http 모듈의 응답 처리메서드
+    console.log("[GET] /");
+    resp.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+    resp.write("Express Welcomes You!");
+    resp.end();
+})
+
+app.get("/welcome", (req, resp) => {
+    // express의 추가 응답 처리 메서드
+    console.log("[GET] /welcome");
+    resp.status(200)
+    .header("Content-Type", "text/html;charset=UTF-8")
+    .send("Welcome!");
+})
+
+// GET 요청 파라미터의 처리
+app.get("/request", (req, resp) => {
+    console.log("[GET] / request");
+    console.log(req.query); // req.query -> url 파라미터 객체
+    console.log("[QUERY] name:"+req.query.name);
+
+    let paramName = req.query.name;
+    if (paramName === undefined ||
+        paramName.length == 0) { // name 파라미터가 전달되지 않으면
+            resp.status(404)    // NotFound
+            .contentType("text/html;charset=utf-8")
+            .send("Name 정보를 확인할 수 없어요.");
+        } 
+    else {
+            // 파라미터 정상 전달
+            resp.status(200) // 성공
+            .contestType("text/html;charset=utf-8")
+            .send("Name:"+paramName);
+        }
+})
 //  서버 start
 http.createServer(app).listen(app.get("port"), () => {
     console.log("Web Server is running on port:" + app.get("port"));

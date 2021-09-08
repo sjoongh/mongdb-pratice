@@ -1,278 +1,278 @@
-// mydb �����ͺ��̽� ����
+// // mydb �����ͺ��̽� ����
 
-use mydb
+// use mydb
 
 
 
-// ���� �����ͺ��̽� Ȯ��
+// // ���� �����ͺ��̽� Ȯ��
 
-db
+// db
 
 
 
-// db�� �����ϴ� collections ��  posts�� ����
+// // db�� �����ϴ� collections ��  posts�� ����
 
-// title�� FirstPost�� ������ ����
+// // title�� FirstPost�� ������ ����
 
-db.posts.insert({��title��: ��Fist Post��})
+// db.posts.insert({��title��: ��Fist Post��})
 
-ㅅ
+// ㅅ
 
-// ��ť��Ʈ �˻�
+// // ��ť��Ʈ �˻�
 
-// 1�� ���� �˻� : findOne()
+// // 1�� ���� �˻� : findOne()
 
-db.posts.findOne();
+// db.posts.findOne();
 
 
 
-// JSON ��ü �����
+// // JSON ��ü �����
 
-let post = { ��title��: ��Second Post��
+// let post = { ��title��: ��Second Post��
 
-}
+// }
 
-db.posts.save(post);
+// db.posts.save(post);
 
-// save : ��ť��Ʈ�� _id�ʵ尡 ������
+// // save : ��ť��Ʈ�� _id�ʵ尡 ������
 
-// insert(����)
+// // insert(����)
 
 
 
-// ���� �Ѱ��� ����
+// // ���� �Ѱ��� ����
 
-post = db.posts.findOne();
+// post = db.posts.findOne();
 
-post
+// post
 
-// _id�� �����Ǿ� �ִ�
+// // _id�� �����Ǿ� �ִ�
 
-// ��Ű���� ������ ���� �ʴ�
+// // ��Ű���� ������ ���� �ʴ�
 
-post.createdAt = new Date();
+// post.createdAt = new Date();
 
-// save : ��ť��Ʈ�� _id �ʵ尡 ������
+// // save : ��ť��Ʈ�� _id �ʵ尡 ������
 
-// update(����)
+// // update(����)
 
-db.posts.save(post)
+// db.posts.save(post)
 
-// ���� ������ ����(Update)
+// // ���� ������ ����(Update)
 
-/*
+// /*
 
-db.�÷��Ǹ�.update(
+// db.�÷��Ǹ�.update(
 
-	{ ���� ������ ���� },
+// 	{ ���� ������ ���� },
 
-	{ $set: 
+// 	{ $set: 
 
-		{ ������Ʈ�� ���� }
+// 		{ ������Ʈ�� ���� }
 
-}
+// }
 
-);
+// );
 
-*/
+// */
 
-db.posts.update(
+// db.posts.update(
 
-	{ ��title��: ��First Post�� },
+// 	{ ��title��: ��First Post�� },
 
-	{ $set:
+// 	{ $set:
 
-	{ createdAt: new Date(),
+// 	{ createdAt: new Date(),
 
-  updatedAt: new Date() }
+//   updatedAt: new Date() }
 
-}
+// }
 
-)
+// )
 
 
 
-// ��ü�� ���� : .remove
+// // ��ü�� ���� : .remove
 
-post = db.posts.findOne()
+// post = db.posts.findOne()
 
-db.posts.remove(post)
+// db.posts.remove(post)
 
 
 
-// �˻� ���� ��ü�� �̿��� ����
+// // �˻� ���� ��ü�� �̿��� ����
 
-db.posts.remove({title : /Second/})
+// db.posts.remove({title : /Second/})
 
 
 
-// ���� ������ insert - insertMany
+// // ���� ������ insert - insertMany
 
-db.posts.insertMany([
+// db.posts.insertMany([
 
-	{ title: ��Fifth Post��, 
+// 	{ title: ��Fifth Post��, 
 
-by: ��bit��,
+// by: ��bit��,
 
-likes: 50 },
+// likes: 50 },
 
-	{ title: ��Sixth Post��,
+// 	{ title: ��Sixth Post��,
 
-by: ��hong��,
+// by: ��hong��,
 
-likes: 50 }
+// likes: 50 }
 
-])
+// ])
 
 
 
-// ������ �˻�
+// // ������ �˻�
 
-// findOne : ������ �����ϴ� ���� �� �Ѱ��� ��ȯ
+// // findOne : ������ �����ϴ� ���� �� �Ѱ��� ��ȯ
 
-// find() : ������ �����ϴ� ������ Ŀ���� ��ȯ
+// // find() : ������ �����ϴ� ������ Ŀ���� ��ȯ
 
-// .pretty() �޼��� : BSON�� ���� ���� ���
+// // .pretty() �޼��� : BSON�� ���� ���� ���
 
 
 
-// �˻� ���� ������
+// // �˻� ���� ������
 
-// ����: { key: value }
+// // ����: { key: value }
 
-db.posts.find({ ��by��: ��bit�� }) // by = bit
+// db.posts.find({ ��by��: ��bit�� }) // by = bit
 
 
 
-// ũ��: $gt { key: { $gt: value } }
+// // ũ��: $gt { key: { $gt: value } }
 
-db.posts.find({ ��hit��: { $gt: 50 } } ) // hit > 50
+// db.posts.find({ ��hit��: { $gt: 50 } } ) // hit > 50
 
-// ũ�ų� ����: $gte
+// // ũ�ų� ����: $gte
 
-// �۴�: $lt
+// // �۴�: $lt
 
-// �۰ų� ����: $lte
+// // �۰ų� ����: $lte
 
-// ���� �ʴ�: $ne
+// // ���� �ʴ�: $ne
 
 
 
-// ������ ����
+// // ������ ����
 
-// and����
+// // and����
 
-/*
+// /*
 
-	{
+// 	{
 
-	  $and: [
+// 	  $and: [
 
-		{ ���� ��ü 1 },
+// 		{ ���� ��ü 1 },
 
-		{ ���� ��ü 2 }
+// 		{ ���� ��ü 2 }
 
-]
+// ]
 
-}
+// }
 
-*/
+// */
 
 
 
-// by�� hong�̰� likes <= 30
+// // by�� hong�̰� likes <= 30
 
-db.posts.find({
+// db.posts.find({
 
-	{
+// 	{
 
-$and: [
+// $and: [
 
-			{  by: ��hond�� },
+// 			{  by: ��hond�� },
 
-			{ likes: { $lte: 30 } }
+// 			{ likes: { $lte: 30 } }
 
-]
+// ]
 
-}
+// }
 
-)
+// )
 
 
 
-// or ����
+// // or ����
 
-/*
+// /*
 
-	{
+// 	{
 
-	 $or: [
+// 	 $or: [
 
-		{ ���� ��ü 1 },
+// 		{ ���� ��ü 1 },
 
-		{ ���� ��ü 2 }
+// 		{ ���� ��ü 2 }
 
-]
+// ]
 
-}
+// }
 
-*/
+// */
 
-// by�� hond �̰ų� likes > 10
+// // by�� hond �̰ų� likes > 10
 
-db.posts.find({
+// db.posts.find({
 
-	$or : [
+// 	$or : [
 
-		{ by: ��hond�� },
+// 		{ by: ��hond�� },
 
-		{ likes: { $gt: 10 } }
+// 		{ likes: { $gt: 10 } }
 
-]
+// ]
 
-});
+// });
 
 
 
-// Projection
+// // Projection
 
-// find, findOne�� �ι�° ���� ��ü�� ��� �ʵ带 ����
+// // find, findOne�� �ι�° ���� ��ü�� ��� �ʵ带 ����
 
-// ����� ������ �� �ִ�
+// // ����� ������ �� �ִ�
 
-// 1: �����, 0: ������� ����
+// // 1: �����, 0: ������� ����
 
-// ��� ������ �߿���, _id ������� �ʰ�
+// // ��� ������ �߿���, _id ������� �ʰ�
 
-// title, likes ���� ���
+// // title, likes ���� ���
 
-db.posts.find({}, { title: 1, likes: 1, _id: 0 })
+// db.posts.find({}, { title: 1, likes: 1, _id: 0 })
 
 
 
-// ��� ����
+// // ��� ����
 
-// .limit : �޾ƿ� ������ ����
+// // .limit : �޾ƿ� ������ ����
 
-// .skip : �ǳʶ� ������ ���� ����
+// // .skip : �ǳʶ� ������ ���� ����
 
-db.posts.find().limit(2).skip(2)
+// db.posts.find().limit(2).skip(2)
 
 
 
-// ������ ����
+// // ������ ����
 
-// ���Ľ� ������ �Ǵ� ������ �����ϴٸ�
+// // ���Ľ� ������ �Ǵ� ������ �����ϴٸ�
 
-// �Է¼������ ���ĵȴ�
+// // �Է¼������ ���ĵȴ�
 
-// .sort : ���� ���� ��ü
+// // .sort : ���� ���� ��ü
 
-//	1: ��������, -1: ��������
+// //	1: ��������, -1: ��������
 
 
 
-// likes�� �������� ����
+// // likes�� �������� ����
 
-db.posts.find().sort({likes: -1})
+// db.posts.find().sort({likes: -1})
 

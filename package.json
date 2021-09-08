@@ -1,0 +1,29 @@
+{
+  "name": "mongodb-pratice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "general_example.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjoongh/mongodb-pratice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjoongh/mongodb-pratice/issues"
+  },
+  "homepage": "https://github.com/sjoongh/mongodb-pratice#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.1.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

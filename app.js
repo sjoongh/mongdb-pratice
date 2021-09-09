@@ -23,6 +23,9 @@ const logger = require("morgan");   //  로거 불러오기
 //  로거를 express에 추가: 마들웨어 추가
 app.use(logger("dev"));
 
+// MongoDB
+const { MongoClient } = require("mongodb");
+
 //  정적 웹의 제공
 //  미들웨어 express.static 미들웨어 함수를 등록 
 app.use(express.static(__dirname + "/public"));
@@ -89,7 +92,32 @@ app.get("/render", (req, resp) => {
     resp.contentType("text/html;charset=utf-8")
     .render("render");
 })
+
+function startServer() {
+    // database 연결 정보
+    const dburl = "mongodb://localhost:27017";
+    // 데이터베이스 Connect
+    MongoClient.connect(dburl, { useNewUrlParser: true })
+    .then(client => {
+        // db 선택
+        console.log("데이터베이스에 연결 되었습니다.");
+        let db = client.db("mydb")
+        // 익스프레스에 추가
+        app.set("db", db);  // db키로 몽고 클라이언트 추가
+
+        // express 실행
+        startExpress();
+    })
+    .catch(reason => {
+        console.error(reason);
+    })
+}
+
+startServer();
+
+function startExpress() {
 //  서버 start
 http.createServer(app).listen(app.get("port"), () => {
     console.log("Web Server is running on port:" + app.get("port"));
 })
+}

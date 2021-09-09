@@ -59,13 +59,13 @@ function testFindByName(name) {
     client.connect()
     .then(client => {
         const db = client.db("mydb");
-
+        // db.friends의 collection에서 
         db.collection("friends").find(
             /* 조건 객체 */
             { name: name }
         ).toArray()
         .then(result => {
-            for (let doc of result) {
+            for (let doc of result) { 
                 console.log(doc);
             }
         }).then(() => {

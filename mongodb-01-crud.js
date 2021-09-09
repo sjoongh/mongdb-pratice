@@ -1,5 +1,11 @@
+// nodejs환경에서 mongodb를 사용하기 위해 필요한 패키지를 npm으로 다운로드
+// npm install mongodb
+// mongdb의 패키지를 nodejs에 적용하기 위해 모듈을 불러옴
+// nodejs를 통해 js언어를 터미널에서 실행가능
 const MongoClient = require('mongodb').MongoClient; // 로드
+// 27017은 몽고디비 전용 포트, 개인용 IP로 접속, 다른 서버IP로 접속설정해도 무관
 const url = "mongodb://localhost:27017";    //  접속 url
+// 접속할 database이름 설정
 const dbName = "mydb";
 
 //  클라이언트 생성
@@ -40,6 +46,9 @@ function testInsertOne(name) {
         const db = client.db("mydb");
         //  컬렉션 선택 후 쿼리 수행
         // console.log(db.collection("mydb"));
+        // filed와 value에 하나의 값 삽입, collection이름은 friends
+        // filed와 value의 이름이 같다면 name만 적어도 무관
+        // 결과는 JSON형식
         db.collection("friends").insertOne({ name: name })
         .then(result => {
             console.log(result);
@@ -47,6 +56,7 @@ function testInsertOne(name) {
             client.close()
         });
     })
+    // 예외 발생시 잡아줌
     .catch(reason => {
         console.log(reason);
     })
@@ -57,16 +67,18 @@ function testInsertOne(name) {
 //  INSERT INTO friends VALUE(...), (...), (...)
 //  db.friends.insertMany([ { 문서 }, { 문서 }, ...])
 function testInsertMany(names) {
+    // 배열로 다수의 값 삽입
     console.log(names, "는 배열?", Array.isArray(names));
     if (Array.isArray(names)) { //  names가 배열
         client.connect()
         .then(client => {
             const db = client.db("mydb");
-
+            // names에 있는 요소들 map으로 돌려서 각각의 요소를 { filed: value }형식으로 만듬 --> data
             let data = names.map(item => {
                 return {name: item};
             }); //  문서의 배열 생성
             console.log("삽입될 문서 목록:", data);
+            // data값 전부 삽입
             db.collection("friends").insertMany(data)
             //  insertMany는 문서의 배열이 필요
             .then(result => {

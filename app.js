@@ -30,6 +30,11 @@ const { MongoClient } = require("mongodb");
 //  미들웨어 express.static 미들웨어 함수를 등록 
 app.use(express.static(__dirname + "/public"));
 
+// body-parser 등록
+// 4.16버전 이후에는 express.static 미들웨어 함수를 등록
+// POST 요청을 처리할 수 있다.
+app.use(express.urlencoded({ extended: false }));
+
 // View엔진 설정
 app.set("view engine", "ejs"); // 뷰엔진으로 ejs 사용 선언
 app.set("views", __dirname + "/views"); // 템플릿의 위치
@@ -93,31 +98,36 @@ app.get("/render", (req, resp) => {
     .render("render");
 })
 
+//  Router 등록(미들웨어)
+const webRouter = require("./router/WebRouter")(app);
+app.use("/web", webRouter);
+const apiRouter = require("./router/APIRouter")(app);
+app.use("/api", apiRouter);
+
 function startServer() {
-    // database 연결 정보
+    //  database 연결 정보
     const dburl = "mongodb://localhost:27017";
-    // 데이터베이스 Connect
+    //  데이터베이스 Connect
     MongoClient.connect(dburl, { useNewUrlParser: true })
-    .then(client => {
-        // db 선택
-        console.log("데이터베이스에 연결 되었습니다.");
-        let db = client.db("mydb")
-        // 익스프레스에 추가
-        app.set("db", db);  // db키로 몽고 클라이언트 추가
+        .then(client => {
+            //  db 선택
+            console.log("데이터베이스에 연결 되었습니다.");
+            let db = client.db("mydb")
+            //  익스프레스에 추가
+            app.set("db", db); //   db 키로 몽고 클라이언트 추가
 
-        // express 실행
-        startExpress();
-    })
-    .catch(reason => {
-        console.error(reason);
-    })
+            //  express 실행
+            startExpress();
+        })
+        .catch(reason => {
+            console.error(reason);
+        });
 }
-
-startServer();
 
 function startExpress() {
-//  서버 start
-http.createServer(app).listen(app.get("port"), () => {
-    console.log("Web Server is running on port:" + app.get("port"));
-})
+    //  서버 start
+    http.createServer(app).listen(app.get("port"), () => {
+        console.log("Web Server is running on port:" + app.get("port"));
+    })
 }
+startServer();

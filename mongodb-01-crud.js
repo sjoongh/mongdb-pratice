@@ -17,6 +17,11 @@ function testConnect() {
             client.close();
         }
         */
+       // then은 두개의 콜백 함수를 인자로 받음
+       // 첫번째 콜백함수는 성공시 두번째는 실패시 호출
+       // then메서드들을 순차적으로 실행된다
+       // 반복해서 사용해도 무관 --> 콜백의 기능을 대신 할수 있지만 그냥 콜백 사용하는게 좋음
+       // 콜백 : 
         client.connect()
         .then(client => {
             //  성공시
@@ -50,7 +55,7 @@ function testInsertOne(name) {
     .catch(reason => {
         console.log(reason);
     })
-}
+} 
 // testInsertOne("홍길동");
 
 //  다수 문서 삽입

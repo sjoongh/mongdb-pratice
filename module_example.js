@@ -23,10 +23,14 @@ console.log(__filename); // 현재 모듈의 파일명
 // const add = require("./modules/test_module1").add;
 // const square = require("./modules/test_module1").square;
 // 전개 연산을 이용한 require
+// require은 module.exports를 리턴한다
+// exports는 module.exports을 참조함, module.exports의 짧은 코드일뿐임 --> 둘이 똑같은 기능과 동작을 함
 const { add, square } = require("./modules/test_module1");
 const area = require("./modules/test_module2");
+// exports는 해당 module1에서 사용할 객체를 지정해주고 사용해야함(개별 모듈 이므로)
 console.log(add(10, 20)); // 불러온 객체 사용
 console.log(square(30));
+// module2의 module.exports는 해당 모듈의 이름만 지정해주면 안에 있는 객체를 접근해서 사용가능(하나의 모듈이므로)
 console.log(area.square(40));
 console.log(area.rectangle(10, 20));
 console.log(area.circle(30));

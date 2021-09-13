@@ -19,8 +19,10 @@ app.set('port', process.env.PORT || 3000);
 //  로거 추가
 //  npm install morgan
 //  로거 불러오기
+// morgan : 로깅에 도움을 주는 미들웨어, 로깅이란 무슨일이 어디에서 일어났는지를 기록함
 const logger = require("morgan");   //  로거 불러오기
 //  로거를 express에 추가: 마들웨어 추가
+// npm run dev로 실행중일때 logger도 같이 사용함
 app.use(logger("dev"));
 
 //  정적 웹의 제공
@@ -33,12 +35,19 @@ app.set("views", __dirname + "/views"); // 템플릿의 위치
 
 // GET 메서드 요청의 처리
 // app.get(url, callback)
+// req : 요청객체, res : 응답객체 --> 이름은 마음대로 지어도됨
+// req.속성 or res.속성 을 통해 어떤 요청객체를 받아올지 어떤 응답객체를 보내줄지 정할 수 있음
+// --> req.params : 파라미터에 데이터를 가져옴, 
+// --> res.redirect() : 페이지를 이동 시킴
+// --> res.send() : 클라이언트에 응답을 보냄(디버깅시 많이 사용)
+// --> req.query : 쿼리스트링 파라미터에 전부를 가져옴
 app.get("/", (req, resp) => {
     // http 모듈의 응답 처리메서드
     // console.log("[GET] /");
     // resp.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
     // resp.write("Express Welcomes You!");
     // resp.end();
+    // 정상적 : 200, contenttype은 text로 utf-8설정, render는 home으로 다시 전송
     resp.status(200)
         .contentType("text/html;charset=utf-8")
         .render("home");

@@ -19,7 +19,6 @@ const Ticker = function(target) {
 // Prototype을 사용해서 어떤 모듈에서든지 접근 할 수 있는 영역 만듬
 // node.js에서의 emit은 메시지를 전달하는 용도임
 // vue에서의 사용법과는 살짝 다름
-// prototype이란??
 Ticker.prototype.start = () => 
     ticker = setInterval(() => {
         tick_target.emit("tick");   // tick_target 객체로 tick 이벤트 전송

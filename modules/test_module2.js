@@ -9,5 +9,5 @@ const area = {
         return width * height;
     }
 }
-
+// 하나의 객체만 내보내고 싶을때 사용
 module.exports = area;
